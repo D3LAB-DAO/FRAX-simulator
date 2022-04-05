@@ -37,10 +37,7 @@ class SoftmaxBandit:
         - Can do annealing
         """
         if deterministic:
-            action = np.argmax(self.actions)
-            check = np.where(self.actions == self.actions[action])[0]
-            if len(check) != 1:
-                action = np.random.choice(check)
+            action = np.random.choice(np.flatnonzero(self.q_table == self.q_table.max()))
         else:
             action = np.random.choice(self.actions, 1, p=soften(self.q_table))
 
